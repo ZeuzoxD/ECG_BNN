@@ -90,7 +90,7 @@ def threshold_activation(x, threshold_params, pool_kernel=7, pool_stride=2):
         torch.ones_like(x_pooled, dtype=torch.int8),
         -torch.ones_like(x_pooled, dtype=torch.int8)
     )
-    return output.float()  
+    return output 
 
 def final_layer(x, final_params, pool_kernel=7, pool_stride=2, scale_factor=2**12):
     alpha_pos_int, alpha_neg_int, beta_int = final_params
