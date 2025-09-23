@@ -331,8 +331,8 @@ def sample_files(root, n=50):
 
 def main():
     parser = argparse.ArgumentParser(description="ECG BNN - Stage 4: Complete Integer Pipeline")
-    parser.add_argument("--model", type=str, default="modelsFBI/LP_ECG_Net_for_5_90.37%.pth")
-    parser.add_argument("--data", type=str, default="ECG_Dataset/ECG-5")
+    parser.add_argument("--model", type=str, default="../../models/LP_ECG_Net_for_5_90.37%.pth")
+    parser.add_argument("--data", type=str, default="../../ECG_Dataset/ECG-5")
     parser.add_argument("--n", type=int, default=100)
     parser.add_argument("--benchmark", action="store_true", help="Run timing benchmark")
 
