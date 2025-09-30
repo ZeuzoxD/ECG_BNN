@@ -127,12 +127,6 @@ class ECG_BNN_MODEL:
         idx, logits = self.forward(sig)
         return idx, self.LABELS[idx], logits
 
-def ld_ecg(path):
-    arr = np.load(path, allow_pickle=True)
-    if arr.dtype == object:
-        arr = np.array(arr.tolist())
-    return np.asarray(arr).squeeze()
-
 def load_ecg(path, classes_num=5):
     if classes_num == 17:
         import scipy.io as scio
@@ -144,14 +138,6 @@ def load_ecg(path, classes_num=5):
         if arr.dtype == object:
             arr = np.array(arr.tolist())
         return np.asarray(arr).squeeze()
-
-def sple_files(root, n=50):
-    files = []
-    for d in sorted(Path(root).glob('*')):
-        if d.is_dir():
-            files.extend(d.glob('*.npy'))
-    random.seed(33)
-    return random.sample(files, min(n, len(files)))
 
 def sample_files(root, n=50, classes_num=5):
     files = []
