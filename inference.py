@@ -98,7 +98,7 @@ class ECG_BNN_MODEL:
                 sd[f'{bn}.bn.bias'],
                 sd[f'{bn}.bn.running_mean'],
                 sd[f'{bn}.bn.running_var'],
-                sd[f'{bn}.bn.prelu.weight'],
+                sd[f'{bn}.prelu.weight'],
             )
             self.thresholds.append(params)
 
