@@ -31,7 +31,7 @@ class WeightExtractor:
             weight_key = f'{block_name}.conv.weight'
 
             weight = self.state_dict[weight_key]
-            weight_binary = touch.sign(weight).to(torch.int8)
+            weight_binary = torch.sign(weight).to(torch.int8)
 
             shape = tuple(weight_binary.shape)
             num_params = weight_binary.numel()
@@ -237,7 +237,7 @@ class WeightExtractor:
             f.write(f"#endif /* {guard} */\n")
 
         size = output_path.stat().st_size
-        print(f"    ✓ Header: {output_path.name} ({size:,} bytes = {size/1024::.2f} KB)")
+        print(f"    ✓ Header: {output_path.name} ({size:,} bytes = {size/1024:.2f} KB)")
         return size
 
     def print_summary(self):
@@ -257,18 +257,18 @@ class WeightExtractor:
         block_headers = 6 * (2 + 2 + 2 + 2) # Each block: dims(6) + num_ch(2)
         total_storage = header_storage + block_headers + weight_storage + threshold_storage
 
-       print(f"\n Extraction Summary")
-       print(f"   {'─' * 50}")
-       print(f"   Model: {Path(self.pth_path).name}")
-       print(f"   Blocks: {len(self.weights)}")
-       print(f"   Scale factor: {self.scale}")
-       print(f"\n   Parameters:")
-       print(f"     Weights:    {total_weights:6,} × 1 byte  = {weight_storage:6,} bytes")
-       print(f"     Thresholds: {total_thresholds:6,} params   = {threshold_storage:6,} bytes")
-       print(f"     Overhead:   {'':6} {'':7} = {header_storage + block_headers:6,} bytes")
-       print(f"     {'─' * 50}")
-       print(f"     TOTAL:      {'':6} {'':7} = {total_storage:6,} bytes ({total_storage/1024:.2f} KB)")
-       print(f"\n   Output: {self.output_dir.absolute()}")
+        print(f"\n Extraction Summary")
+        print(f"   {'─' * 50}")
+        print(f"   Model: {Path(self.pth_path).name}")
+        print(f"   Blocks: {len(self.weights)}")
+        print(f"   Scale factor: {self.scale}")
+        print(f"\n   Parameters:")
+        print(f"     Weights:    {total_weights:6,} × 1 byte  = {weight_storage:6,} bytes")
+        print(f"     Thresholds: {total_thresholds:6,} params   = {threshold_storage:6,} bytes")
+        print(f"     Overhead:   {'':6} {'':7} = {header_storage + block_headers:6,} bytes")
+        print(f"     {'─' * 50}")
+        print(f"     TOTAL:      {'':6} {'':7} = {total_storage:6,} bytes ({total_storage/1024:.2f} KB)")
+        print(f"\n   Output: {self.output_dir.absolute()}")
  
 def main():
     models = [

@@ -89,7 +89,7 @@ class ECG_BNN_INFERENCE:
         Cout = len(w)
         K = len(w[0][0])
 
-        x = self.pad1d(x, padding, val=1)
+        x = self.pad_1d(x, padding, val=1)
         L_padded = len(x[0])
 
         L_out = (L_padded - K) // stride + 1
@@ -110,7 +110,7 @@ class ECG_BNN_INFERENCE:
     def maxpool_int(self, x, k=7, s=2):
         C = len(x)
         L = len(x[0])
-        L_out = (L - K) // s + 1
+        L_out = (L - k) // s + 1
         output = [[0 for _ in range(L_out)] for _ in range(C)]
 
         for c in range(C):
@@ -175,7 +175,7 @@ class ECG_BNN_INFERENCE:
             else:
                 signal_bin.append(-1)
 
-        return[signal_bin]
+        return [signal_bin]
 
     def forward(self, signal):
         x = self.preprocess(signal)
@@ -285,3 +285,6 @@ def main():
     print("\nResults:")
     print(f"  Correct: {correct}/{len(files)}")
     print(f"  Accuracy: {accuracy:.2f}%")
+
+if __name__ == "__main__":
+    main()
