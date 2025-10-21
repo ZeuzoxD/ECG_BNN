@@ -155,7 +155,7 @@ class WeightExtractor:
 
             # Total weight counts for memory allocation
             f.write("/* Total weights per block */\n")
-            f.write("const uint32_t block_weight_counts[NUM_BLOCKS] = {\n    }")
+            f.write("const uint32_t block_weight_counts[NUM_BLOCKS] = {\n    ")
             counts = [len(w['data']) for w in self.weights]
             f.write(", ".join(str(c) for c in counts))
             f.write("\n};\n\n")
